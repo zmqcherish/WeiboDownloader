@@ -5,17 +5,38 @@ import requests
 from urllib.request import urlretrieve
 
 agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15007'
-cookies = ''
-header = {"User-Agent": agent, "Cookie": cookies}
+# cookies = ''
+header = {"User-Agent": agent}
 
+per_num = 3
+
+file_list = []
 '''
 HandleSingleItem
 '''
 class HandleSingleItem(object):
-    def __init__(self, img_path = 'D:/download/1'):
+    def __init__(self, img_path = 'D:/WeiboFolder/'):
         if not os.path.exists(img_path):
             os.mkdir(img_path)
         self.img_path = img_path
+
+    def start(self,urls):
+        try:
+            for url in urls:
+                print('正在解析微博:{}\n'.format(url))
+                self.handle(url)
+            print('全部解析完成，开始下载\n')
+            self.download_files()
+            print('全部下载完成\n')
+        except Exception as ex:
+            print(ex)
+
+    def download_files(self):
+        thread_num = int( len(file_list) / per_num) + 1
+        pass
+
+    def download_file(self, file):
+        pass
 
     def handle(self, url):
         # url = 'http://weibo.com/3139784387/F1FIAdWL5'
@@ -40,7 +61,7 @@ class HandleSingleItem(object):
                 urlretrieve(purl, name)
         except Exception as e:
             print(e)
-        print('完成')
+        # print('完成')
 
 if __name__ == '__main__':
     a = HandleSingleItem()
