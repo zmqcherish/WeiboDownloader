@@ -17,7 +17,15 @@ namespace WeiboDownloader
         {
             try
             {
-                if (File.Exists(urlFilePath))
+                if (args.Length!=0)
+                {
+                    foreach (var url in args)
+                    {
+                        Console.WriteLine($"-----> 正在处理微博：{url}");
+                        Handler(url);
+                    }
+                }
+                else if (File.Exists(urlFilePath))
                 {
                     if (!Directory.Exists(folderPath))
                         Directory.CreateDirectory(folderPath);
